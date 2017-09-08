@@ -41,3 +41,6 @@ Create root package
 ```bash
 catkin_create_pkg mobile_robot mobile_robot_base mobile_robot_description mobile_robot_simulation
 ```
+
+## Step 5
+Clean the package file and update the details
