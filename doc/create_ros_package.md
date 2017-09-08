@@ -35,3 +35,9 @@ catkin_create_pkg mobile_robot_description tf xacro urdf joint_state_publisher r
 
 catkin_create_pkg mobile_robot_simulation gazebo
 ```
+
+## Step 4
+Create root package
+```bash
+catkin_create_pkg mobile_robot mobile_robot_base mobile_robot_description mobile_robot_simulation
+```
