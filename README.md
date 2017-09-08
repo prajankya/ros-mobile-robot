@@ -9,3 +9,9 @@ For developing a mobile-robot(we are focusing on wheeled robot), the stepwise wo
 - [ ] Creating launch files (RViz and Gazebo)
 - [ ] Creating base controller
 - [ ] Simulating in Gazebo
+
+
+## Setup
+- Ubuntu installed in laptop / PC (Normally the latest stable one, at the time of writing this article, *Ubuntu 16.04*)
+- Appropriate ROS distro for the Ubuntu(also the latest stable one, at this time, *ROS Kinetic Kame*)
+- Around 4-8 GB RAM for running the simulation.
