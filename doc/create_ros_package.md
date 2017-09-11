@@ -33,7 +33,7 @@ catkin_create_pkg mobile_robot_base rospy rviz geometry_msgs std_msgs sensor_msg
 
 catkin_create_pkg mobile_robot_description tf xacro urdf joint_state_publisher robot_state_publisher
 
-catkin_create_pkg mobile_robot_simulation gazebo
+catkin_create_pkg mobile_robot_simulation gazebo_ros
 ```
 
 ## Step 4
