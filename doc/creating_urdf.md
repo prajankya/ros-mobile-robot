@@ -59,32 +59,6 @@ to
 ...
 ```
 
-now we will define a wheel,
-
-in the same file, before `base_link`, we will define a _macro_
-```xml
-...
-<xacro:macro name="wheel">
-  <visual>
-    <origin xyz="0.02 0 0" rpy="0 0 ${pi/2}"/>
-    <geometry>
-      <box size="0.6 0.4 0.10"/>
-    </geometry>
-  </visual>
-  <inertial>
-    <mass value="0.5"/>
-    <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.000001" iyz="0.0" izz="0.0"/>
-  </inertial>
-  <collision>
-    <origin xyz="0.027 0 0.0" rpy="0 ${pi/2} 0"/>
-    <geometry>
-       <cylinder length="0.045" radius="0.08"/>
-    </geometry>
-  </collision>
-</xacro:macro>
-...
-```
-
 Then create a folder `launch` in the same package `mobile_robot_description` and create a file called `desc.launch`
 
 put the following in the file,
