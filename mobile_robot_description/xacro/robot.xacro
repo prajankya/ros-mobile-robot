@@ -1,5 +1,28 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="mobile_robot">
+  <xacro:macro name="wheel" params="name x y">
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+        <geometry>
+          <cylinder length="0.04" radius="0.1"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+        <geometry>
+           <cylinder length="0.04" radius="0.1"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="base_link_${name}" type="continuous">
+      <origin xyz="${y*0.25} ${x*0.25} 0" rpy="0 0 ${(x-1)* pi/2}"/>
+       <axis rpy="0 0 0" xyz="0 1 0"/>
+      <parent link="base_link"/>
+      <child link="${name}"/>
+    </joint>
+  </xacro:macro>
+
   <link name="base_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -17,4 +40,40 @@
       </geometry>
     </collision>
   </link>
+  <xacro:wheel name="wh_left_back" x="1" y="-1"/>
+  <xacro:wheel name="wh_right_back" x="-1" y="-1"/>
+  <xacro:wheel name="wh_left_front" x="1" y="1"/>
+  <xacro:wheel name="wh_right_front" x="-1" y="1"/>
+
+  <!-- ===================== References ===================== -->
+  <link name="x">
+    <visual>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="x">
+        <color rgba="1.0 0.0 0.0 0.3"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="base_link_x" type="fixed">
+    <origin xyz="1.0 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="x"/>
+  </joint>
+  <link name="y">
+    <visual>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="y">
+        <color rgba="0.0 1.0 0.0 0.3"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="base_link_y" type="fixed">
+    <origin xyz="0 1 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="y"/>
+  </joint>
 </robot>

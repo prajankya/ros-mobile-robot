@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="viz" default="true"/>
+  <arg name="gui" default="false"/>
+
+  <include file="$(find mobile_robot_description)/launch/desc.launch"/>
+  <include file="$(find mobile_robot_description)/launch/state_publisher.launch">
+    <arg name="use_gui" value="$(arg gui)"/>
+  </include>
+
+  <group if="$(arg viz)">
+    <include file="$(find mobile_robot_description)/launch/rviz.launch"/>
+  </group>
+</launch>

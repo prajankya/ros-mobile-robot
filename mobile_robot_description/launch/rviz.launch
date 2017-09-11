@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="config" default="rviz_config" />
+
+  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find mobile_robot_description)/config/$(arg config).rviz" />
+</launch>
