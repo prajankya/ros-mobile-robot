@@ -5,9 +5,9 @@ A tutorial on building simulated mobile robot in ROS
 For developing a mobile-robot(we are focusing on wheeled robot), the stepwise workflow we are following is as follows
 
 - [x] [Create basic packages](doc/create_ros_package.md)
-- [ ] [Creating URDF](doc/creating_urdf.md)
-- [ ] [Converting URDF for Gazebo](doc/converting_urdf.md)
-- [ ] Simulating in Gazebo
+- [x] [Creating URDF](doc/creating_urdf.md)
+- [x] [Converting URDF for Gazebo](doc/converting_urdf.md)
+- [ ] [Simulating in Gazebo](doc/simulating.md)
 
 
 ## Setup

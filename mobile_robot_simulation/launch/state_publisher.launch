@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_pub">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+</launch>
