@@ -24,16 +24,16 @@
       <xacro:default_inertial mass="0.6"/>
     </link>
     <joint name="base_link_${name}" type="continuous">
-      <origin xyz="${y*0.25} ${x*0.25} 0" rpy="0 0 ${(x-1)* pi/2}"/>
+      <origin xyz="${y*0.25} ${x*0.25} 0" rpy="0 0 0"/>
        <axis rpy="0 0 0" xyz="0 1 0"/>
       <parent link="base_link"/>
       <child link="${name}"/>
     </joint>
 
     <gazebo reference="base_link_${name}_wheel">
-      <mu1 value="200.0"/>
-      <mu2 value="100.0"/>
-      <kp value="10000000.0" />
+      <mu1 value="20.0"/>
+      <mu2 value="10.0"/>
+      <kp value="1000.0" />
       <kd value="1.0" />
       <material>Gazebo/Grey</material>
     </gazebo>

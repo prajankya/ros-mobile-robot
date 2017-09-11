@@ -76,3 +76,67 @@ Update the group with,
 </group>
 ...
 ```
+
+## Step 3
+Adding Differential Drive
+
+First we would add the config, create a file named `diffdrive.yaml` in `config` folder of `mobile_robot_simulation` package, with the contents
+
+```xml
+type: "diff_drive_controller/DiffDriveController"
+publish_rate: 50
+
+left_wheel: ['base_link_wh_left_back', 'base_link_wh_left_front']
+right_wheel: ['base_link_wh_right_back', 'base_link_wh_right_front']
+
+wheel_separation: 0.44
+
+# Odometry covariances for the encoder output of the robot. These values should
+# be tuned to your robot's sample odometry data, but these values are a good place
+# to start
+pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+
+# Top level frame (link) of the robot description
+base_frame_id: base_link
+
+# Velocity and acceleration limits for the robot
+linear:
+  x:
+    has_velocity_limits    : true
+    max_velocity           : 0.2   # m/s
+    has_acceleration_limits: true
+    max_acceleration       : 0.6   # m/s^2
+angular:
+  z:
+    has_velocity_limits    : true
+    max_velocity           : 2.0   # rad/s
+    has_acceleration_limits: true
+    max_acceleration       : 6.0   # rad/s^2
+```
+
+Then add another rosparam in `gazebo.launch` file as follows,
+
+```xml
+...
+<rosparam command="load" file="$(find mobile_robot_simulation)/config/diffdrive.yaml" ns="mobile_robot_diff_drive_controller"/>
+...
+```
+
+And then update the controller in the same file from
+```xml
+<node name="mobile_robot_controller_spawner" pkg="controller_manager" type="spawner"
+  args="mobile_robot_joint_state_controller --shutdown-timeout 3"/>
+```
+To
+```xml
+<node name="mobile_robot_controller_spawner" pkg="controller_manager" type="spawner"
+  args="mobile_robot_joint_state_controller mobile_robot_diff_drive_controller --shutdown-timeout 3"/>
+```
+
+Now Run in a terminal
+
+```bash
+roslaunch mobile_robot robot.launch
+```
+To better visualize, you can change the `Fixed Frame` from `base_link` to `odom` in RViz on the Left side pane.
