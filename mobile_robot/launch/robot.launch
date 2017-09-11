@@ -2,6 +2,7 @@
 <launch>
   <arg name="viz" default="true"/>
   <arg name="gui" default="false"/>
+  <arg name="sim" default="true" />
 
   <include file="$(find mobile_robot_description)/launch/desc.launch"/>
   <include file="$(find mobile_robot_description)/launch/state_publisher.launch">
@@ -10,5 +11,9 @@
 
   <group if="$(arg viz)">
     <include file="$(find mobile_robot_description)/launch/rviz.launch"/>
+  </group>
+
+  <group if="$(arg sim)">
+    <include file="$(find mobile_robot_simulation)/launch/gazebo.launch"/>
   </group>
 </launch>

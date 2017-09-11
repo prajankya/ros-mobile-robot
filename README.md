@@ -6,8 +6,7 @@ For developing a mobile-robot(we are focusing on wheeled robot), the stepwise wo
 
 - [x] [Create basic packages](doc/create_ros_package.md)
 - [ ] [Creating URDF](doc/creating_urdf.md)
-- [ ] Creating launch files (RViz and Gazebo)
-- [ ] Creating base controller
+- [ ] [Converting URDF for Gazebo](doc/converting_urdf.md)
 - [ ] Simulating in Gazebo
 
 

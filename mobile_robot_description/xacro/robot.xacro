@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="mobile_robot">
+  <xacro:macro name="default_inertial" params="mass">
+    <inertial>
+      <mass value="${mass}" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+  </xacro:macro>
+
   <xacro:macro name="wheel" params="name x y">
     <link name="${name}">
       <visual>
@@ -14,6 +21,7 @@
            <cylinder length="0.04" radius="0.1"/>
         </geometry>
       </collision>
+      <xacro:default_inertial mass="0.6"/>
     </link>
     <joint name="base_link_${name}" type="continuous">
       <origin xyz="${y*0.25} ${x*0.25} 0" rpy="0 0 ${(x-1)* pi/2}"/>
@@ -39,6 +47,7 @@
         <box size="0.6 0.4 0.10"/>
       </geometry>
     </collision>
+    <xacro:default_inertial mass="6"/>
   </link>
   <xacro:wheel name="wh_left_back" x="1" y="-1"/>
   <xacro:wheel name="wh_right_back" x="-1" y="-1"/>
@@ -46,6 +55,7 @@
   <xacro:wheel name="wh_right_front" x="-1" y="1"/>
 
   <!-- ===================== References ===================== -->
+  <!--
   <link name="x">
     <visual>
       <geometry>
@@ -76,4 +86,26 @@
     <parent link="base_link"/>
     <child link="y"/>
   </joint>
+  -->
+
+  <!-- =================== Gazebo ==================== -->
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+  <!-- <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+    <alwaysOn>true</alwaysOn>
+    <updateRate>20</updateRate>
+    <leftJoint>base_link_wh_left_back</leftJoint>
+    <rightJoint>base_link_wh_right_back</rightJoint>
+    <wheelSeparation>0.5</wheelSeparation>
+    <wheelDiameter>0.1</wheelDiameter>
+    <torque>20</torque>
+    <commandTopic>cmd_vel</commandTopic>
+    <odometryTopic>odom</odometryTopic>
+    <odometryFrame>odom</odometryFrame>
+    <robotBaseFrame>base_footprint</robotBaseFrame>
+  </plugin> -->
 </robot>
