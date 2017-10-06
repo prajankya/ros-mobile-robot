@@ -1,6 +1,5 @@
 # Creating URDF
 URDF file is the robot description file in ROS. URDF stands for Unified Robot Description Format.
-
 ## Step 1
 Create a basic file with chassis of the robot.
 
@@ -71,9 +70,17 @@ put the following in the file,
 </launch>
 ```
 
-Then run this launch file by running
+First compile all the packages, in the `catkin_ws` folder
+
 ```bash
-roslaunch mobile_robot_description urdf.launch
+catkin_make
+
+source devel/setup.bash
+```
+
+Then run the launch file by running
+```bash
+roslaunch mobile_robot_description desc.launch
 ```
 
 Then in other terminal run
@@ -85,6 +92,9 @@ Then in rviz click on add button in left bottom, adn add `RobotModel`
 
 Now in Left `Display` pane in `Global Options` change the `Fixed frame` from `map` to `base_link`. (you need to type base_link in place of map)
 
+
+Also save the config of current settings in rviz with `RobotModel` in the folder `config` in `mobile_robot_description` with the name `rviz_config.rviz` by going in `File` menu of `RViz` and doing `Save Config as`
+
 ## Step 3
 Adding wheels
 
@@ -93,23 +103,27 @@ now we will define a wheel,
 in the same `robot.xacro` file, before `base_link`, we will define a _macro_
 ```xml
 ...
-<xacro:macro name="wheel">
-  <visual>
-    <origin xyz="0.02 0 0" rpy="0 0 ${pi/2}"/>
-    <geometry>
-      <box size="0.6 0.4 0.10"/>
-    </geometry>
-  </visual>
-  <inertial>
-    <mass value="0.5"/>
-    <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.000001" iyz="0.0" izz="0.0"/>
-  </inertial>
-  <collision>
-    <origin xyz="0.027 0 0.0" rpy="0 ${pi/2} 0"/>
-    <geometry>
-       <cylinder length="0.045" radius="0.08"/>
-    </geometry>
-  </collision>
+<xacro:macro name="wheel" params="name x y">
+  <link name="${name}">
+    <visual>
+      <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+         <cylinder length="0.04" radius="0.1"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_link_${name}" type="continuous">
+    <origin xyz="${y*0.25} ${x*0.25} 0" rpy="0 0 0"/>
+     <axis rpy="0 0 0" xyz="0 1 0"/>
+    <parent link="base_link"/>
+    <child link="${name}"/>
+  </joint>
 </xacro:macro>
 ...
 ```
@@ -122,10 +136,6 @@ Now add these lines below the `base_link` link in `robot.xacro`
 <xacro:wheel name="wh_left_front" x="1" y="1"/>
 <xacro:wheel name="wh_right_front" x="-1" y="1"/>
 ```
-
-Also save the config of current settings in rviz with `RobotModel` in the folder `config` in `mobile_robot_description` with the name `rviz_config.rviz`
-
-
 
 Next, create a file named `state_publisher.launch` in the launch folder of `mobile_robot_description` with the following contents
 
@@ -170,4 +180,10 @@ And finally a main launch file, `robot.launch` in `mobile_robot` package, in `la
     <include file="$(find mobile_robot_description)/launch/rviz.launch"/>
   </group>
 </launch>
+```
+
+Now you can test by running,
+
+```bash
+roslaunch mobile_robot robot.launch
 ```

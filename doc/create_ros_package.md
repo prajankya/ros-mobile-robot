@@ -43,4 +43,20 @@ catkin_create_pkg mobile_robot mobile_robot_base mobile_robot_description mobile
 ```
 
 ## Step 5
-Clean the package file and update the details
+Compile for the first time
+
+go back to `catkin_ws` directory by running
+
+```bash
+cd ..
+```
+
+Now if you run `pwd` in the terminal, you should get an output like,
+`/home/<USERNAME>/catkin_ws`
+
+Here, run the following,
+```bash
+catkin_make
+
+source devel/setup.bash
+```
