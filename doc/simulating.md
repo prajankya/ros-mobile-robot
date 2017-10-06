@@ -1,6 +1,6 @@
 #Simulating in Gazebo
 
-After the file has been loaded in the gazebo, now we will configure ROS and Gazebo for our model to be controlled through ROS
+After the file has been loaded in the gazebo, now we will configure ROS and Gazebo for our model to be controlled through ROS.
 
 ## Step 1
 Add wheel Trasnmission
@@ -27,20 +27,22 @@ You need to add the following just before closing of the `wheel` _macro_ in the 
   <joint name="base_link_${name}">
     <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
   </joint>
-  </transmission>
+</transmission>
 ...
 ```
 
 ## Step 2
 Add Joint state Publisher from Gazebo
 
-First add a file named `joints.yaml` in `config` folder in `mobile_robot_simulation` package, with the following contents,
+In file `mobile_robot_simulation/config/joints.yaml` add the contents
+
 ```xml
 type: "joint_state_controller/JointStateController"
 publish_rate: 50
 ```
 
-Then add a file named `state_publisher.launch` in `launch` folder of `mobile_robot_simulation` package, with the following contents,
+In file `mobile_robot_simulation/launch/state_publisher.launch` add the contents
+
 ```xml
 <?xml version="1.0"?>
 <launch>
@@ -62,7 +64,26 @@ adding the following after all the `arg` tags,
 ```
 
 Finally Update `robot.launch` file in `mobile_robot` package
-Update the group with,
+
+Remove the `state_publisher` node from the file by __REMOVING__
+```xml
+<include file="$(find mobile_robot_description)/launch/state_publisher.launch">
+  <arg name="use_gui" value="$(arg gui)"/>
+</include>
+```
+
+And then replace the last group(group with gazebo),
+
+```xml
+...
+<group if="$(arg sim)">
+  <include file="$(find mobile_robot_simulation)/launch/gazebo.launch"/>
+</group>
+...
+```
+
+with
+
 ```xml
 ...
 <group unless="$(arg sim)">
@@ -80,7 +101,7 @@ Update the group with,
 ## Step 3
 Adding Differential Drive
 
-First we would add the config, create a file named `diffdrive.yaml` in `config` folder of `mobile_robot_simulation` package, with the contents
+In the file `mobile_robot_simulation/config/diffdrive.yaml`, put the followings
 
 ```xml
 type: "diff_drive_controller/DiffDriveController"
@@ -134,9 +155,42 @@ To
   args="mobile_robot_joint_state_controller mobile_robot_diff_drive_controller --shutdown-timeout 3"/>
 ```
 
-Now Run in a terminal
+## Step 4
+Running in a terminal
 
 ```bash
 roslaunch mobile_robot robot.launch
 ```
-To better visualize, you can change the `Fixed Frame` from `base_link` to `odom` in RViz on the Left side pane.
+You should change the `Fixed Frame` from `base_link` to `odom` in RViz on the Left side pane, and Save the config.
+
+
+## Step 5
+Running GUI
+
+For this we need a package not installed by default in ROS,
+
+So will install the ROS package like any other ROS package install, by running,
+
+```bash
+sudo apt install ros-kinetic-rqt-robot-steering
+```
+
+Now in a terminal run the node we just installed
+```bash
+rosrun rqt_robot_steering rqt_robot_steering
+```
+
+
+
+## Extras
+
+You can check connections between all the running nodes by running this in terminal
+
+```bash
+rqt_graph
+```
+
+Also you can check the flow of transformation by running this,
+```bash
+rosrun rqt_tf_tree rqt_tf_tree
+```

@@ -3,7 +3,9 @@ Gazebo is a simulation software which uses SDF which is very similar to URDF.
 But as gazebo is not a directly inside ros, it has to be linked with ROS.
 
 ## Step 1
-Add ros_control in gazebo in file `robot.xacro`
+Add ros_control to connect to gazebo in file `robot.xacro`
+
+Also adding differential_drive_controller
 
 Add these line at the bottom of the xacro file, just before closing the `robot` tag
 ```xml
@@ -32,8 +34,6 @@ Add these line at the bottom of the xacro file, just before closing the `robot` 
 
 ## Step 2
 Add Inertia values for all links
-
-Comment all the references(X and Y spheres) using `<!--` and `-->` so as to not define any inertia for those.
 
 Now a macro, just about the wheel macro we had created earlier
 ```xml
