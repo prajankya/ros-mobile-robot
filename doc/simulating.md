@@ -180,8 +180,10 @@ Now in a terminal run the node we just installed
 rosrun rqt_robot_steering rqt_robot_steering
 ```
 
-
-
+Now set the topic to publisher
+```bash
+/mobile_robot_diff_drive_controller/cmd_vel
+```
 ## Extras
 
 You can check connections between all the running nodes by running this in terminal

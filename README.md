@@ -27,3 +27,9 @@ For developing a mobile-robot(we are focusing on wheeled robot), the stepwise wo
 [![im](doc/sc3.png)](doc/sc3.png)
 
 [![im](doc/sc4.png)](doc/sc4.png)
+
+[![im](doc/nodes.png)](doc/nodes.png)
+
+[![im](doc/graph.png)](doc/graph.png)
+
+[![im](doc/graph2.png)](doc/graph2.png)
