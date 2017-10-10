@@ -2,8 +2,13 @@
 
 After the file has been loaded in the gazebo, now we will configure ROS and Gazebo for our model to be controlled through ROS.
 
+Install Few softwares for ROS Control, by running this in terminal
+
+```bash
+sudo apt install ros-kinetic-ros-control ros-kinetic-ros-controllers  ros-kinetic-gazebo-ros ros-kinetic-gazebo-ros-control  ros-kinetic-gazebo-ros-pkgs
+```
 ## Step 1
-Add wheel Trasnmission
+Add wheel Transmission
 
 To drive the robot around, we specify a `transmission` tag for each of the wheels from within the wheel macro.
 
