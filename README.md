@@ -3,6 +3,7 @@ A tutorial on building simulated mobile robot in ROS
 
 ![im](doc/im1.png)
 
+## Please give a star in top right corner of this page if you follow this tutorial
 
 # Workflow
 For developing a mobile-robot(we are focusing on wheeled robot), the stepwise workflow we are following is as follows
