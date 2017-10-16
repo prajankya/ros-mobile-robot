@@ -103,7 +103,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES mobile_robot_simulation
-#  CATKIN_DEPENDS gazebo
+#  CATKIN_DEPENDS gazebo_ros
 #  DEPENDS system_lib
 )
 
