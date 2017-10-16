@@ -5,15 +5,19 @@
   <arg name="sim" default="true"/>
 
   <include file="$(find mobile_robot_description)/launch/desc.launch"/>
-  <include file="$(find mobile_robot_description)/launch/state_publisher.launch">
-    <arg name="use_gui" value="$(arg gui)"/>
-  </include>
 
   <group if="$(arg viz)">
     <include file="$(find mobile_robot_description)/launch/rviz.launch"/>
   </group>
 
+  <group unless="$(arg sim)">
+    <include file="$(find mobile_robot_description)/launch/state_publisher.launch">
+      <arg name="use_gui" value="$(arg gui)"/>
+    </include>
+  </group>
+
   <group if="$(arg sim)">
+    <include file="$(find mobile_robot_simulation)/launch/state_publisher.launch"/>
     <include file="$(find mobile_robot_simulation)/launch/gazebo.launch"/>
   </group>
 </launch>

@@ -36,6 +36,24 @@
       <parent link="base_link"/>
       <child link="${name}"/>
     </joint>
+
+    <gazebo reference="base_link_${name}_wheel">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <transmission name="base_link_${name}_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="base_link_${name}_wheel_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="base_link_${name}">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+    </transmission>
   </xacro:macro>
 
   <link name="base_link">

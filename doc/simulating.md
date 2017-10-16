@@ -39,14 +39,14 @@ You need to add the following just before closing of the `wheel` _macro_ in the 
 ## Step 2
 Add Joint state Publisher from Gazebo
 
-In file `mobile_robot_simulation/config/joints.yaml` add the contents
+Create a file `mobile_robot_simulation/config/joints.yaml` with the contents
 
 ```xml
 type: "joint_state_controller/JointStateController"
 publish_rate: 50
 ```
 
-In file `mobile_robot_simulation/launch/state_publisher.launch` add the contents
+Create a file `mobile_robot_simulation/launch/state_publisher.launch` with the contents
 
 ```xml
 <?xml version="1.0"?>
@@ -72,12 +72,14 @@ Finally Update `robot.launch` file in `mobile_robot` package
 
 Remove the `state_publisher` node from the file by __REMOVING__
 ```xml
+...
 <include file="$(find mobile_robot_description)/launch/state_publisher.launch">
   <arg name="use_gui" value="$(arg gui)"/>
 </include>
+....
 ```
 
-And then replace the last group(group with gazebo),
+And then replacing,
 
 ```xml
 ...
@@ -87,7 +89,7 @@ And then replace the last group(group with gazebo),
 ...
 ```
 
-with
+__WITH__
 
 ```xml
 ...
@@ -106,7 +108,7 @@ with
 ## Step 3
 Adding Differential Drive
 
-In the file `mobile_robot_simulation/config/diffdrive.yaml`, put the followings
+Create a file `mobile_robot_simulation/config/diffdrive.yaml`, and put the following
 
 ```xml
 type: "diff_drive_controller/DiffDriveController"
