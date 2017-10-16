@@ -3,16 +3,18 @@ A tutorial on building simulated mobile robot in ROS
 
 ![im](doc/im1.png)
 
-## Please give a star in top right corner of this page if you follow this tutorial
 
 # Workflow
 For developing a mobile-robot(we are focusing on wheeled robot), the stepwise workflow we are following is as follows
 
-- [x] [Create basic packages](doc/create_ros_package.md)
-- [x] [Creating URDF](doc/creating_urdf.md)
-- [x] [Converting URDF for Gazebo](doc/converting_urdf.md)
-- [x] [Simulating in Gazebo](doc/simulating.md)
+## Section 1
 
+- [x] [Part 1 : Create basic packages](doc/create_ros_package.md)
+- [x] [Part 2 : Creating URDF](doc/creating_urdf.md)
+- [x] [Part 3 : Converting URDF for Gazebo](doc/converting_urdf.md)
+- [x] [Part 4 : Simulating in Gazebo](doc/simulating.md)
+
+## Section
 
 ## Setup
 - Ubuntu installed in laptop / PC (Normally the latest stable one, at the time of writing this article, *Ubuntu 16.04*)
