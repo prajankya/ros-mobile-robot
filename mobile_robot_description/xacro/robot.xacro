@@ -94,9 +94,9 @@
     <wheelSeparation>0.5</wheelSeparation>
     <wheelDiameter>0.1</wheelDiameter>
     <torque>20</torque>
-    <commandTopic>cmd_vel</commandTopic>
-    <odometryTopic>odom</odometryTopic>
+    <commandTopic>/cmd_vel</commandTopic>
+    <odometryTopic>/mobile_robot/odom</odometryTopic>
     <odometryFrame>odom</odometryFrame>
-    <robotBaseFrame>base_footprint</robotBaseFrame>
+    <robotBaseFrame>base_link</robotBaseFrame>
   </plugin>
 </robot>

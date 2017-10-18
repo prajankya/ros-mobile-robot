@@ -13,8 +13,8 @@ For developing a mobile-robot(we are focusing on wheeled robot), the stepwise wo
 - [x] [Part 2 : Creating URDF](doc/creating_urdf.md)
 - [x] [Part 3 : Converting URDF for Gazebo](doc/converting_urdf.md)
 - [x] [Part 4 : Simulating in Gazebo](doc/simulating.md)
-
-## Section
+- [x] [Part 5 : Making the Robot generic](doc/generic.md)
+## Section 2
 
 ## Setup
 - Ubuntu installed in laptop / PC (Normally the latest stable one, at the time of writing this article, *Ubuntu 16.04*)
