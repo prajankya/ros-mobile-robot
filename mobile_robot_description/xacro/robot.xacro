@@ -80,6 +80,32 @@
   <xacro:wheel name="wh_left_front" x="1" y="1"/>
   <xacro:wheel name="wh_right_front" x="-1" y="1"/>
 
+  <!-- =================== Kinect ==================== -->
+  <link name="kinect_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mobile_robot_description/meshes/kinect.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="kinect">
+        <color rgba="1 0.9 0.9 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.28 0.07 0.08"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="0.2"/>
+  </link>
+
+  <joint name="base_link_kinect_link" type="fixed">
+    <origin xyz="0.265 0 0.087" rpy="0 0 ${pi/2}"/>
+    <parent link="base_link"/>
+    <child link="kinect_link"/>
+  </joint>
+
   <!-- =================== Gazebo ==================== -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
