@@ -16,6 +16,7 @@ For developing a mobile-robot(we are focusing on wheeled robot), the stepwise wo
 
 ## Section 2
 - [x] [Part 1 : Adding a STL file for sensor](doc/adding_stl.md)
+- [x] [Part 2 : Adding sensor plugin in Gazebo](doc/adding_sensor.md)
 
 
 ## Setup

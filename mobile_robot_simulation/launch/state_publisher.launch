@@ -4,4 +4,6 @@
     <remap from="/mobile_robot/joint_states" to="/joint_states"/>
     <param name="publish_frequency" type="double" value="30.0"/>
   </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="kinect_tf_broadcaster" args="0 0 0 0 3.1459 1.57 /kinect_link /gz_kinect_link 4"/>
 </launch>

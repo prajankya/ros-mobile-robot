@@ -37,14 +37,6 @@
       <child link="${name}"/>
     </joint>
 
-    <gazebo reference="base_link_${name}_wheel">
-      <mu1 value="200.0"/>
-      <mu2 value="100.0"/>
-      <kp value="10000000.0"/>
-      <kd value="1.0"/>
-      <material>Gazebo/Grey</material>
-    </gazebo>
-
     <transmission name="base_link_${name}_wheel_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <actuator name="base_link_${name}_wheel_motor">
@@ -72,7 +64,7 @@
         <box size="0.6 0.4 0.10"/>
       </geometry>
     </collision>
-    <xacro:default_inertial mass="6"/>
+    <xacro:default_inertial mass="20"/>
   </link>
 
   <xacro:wheel name="wh_left_back" x="1" y="-1"/>
@@ -106,23 +98,92 @@
     <child link="kinect_link"/>
   </joint>
 
+  <!-- =================== Gazebo - Kinect ==================== -->
+  <link name="gz_kinect_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="kinect">
+        <color rgba="1 0.9 0.9 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="0.2"/>
+  </link>
+
+  <joint name="kinect_link_gz_kinect_link" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 -${pi/2}"/>
+    <parent link="kinect_link"/>
+    <child link="gz_kinect_link"/>
+  </joint>
+
+  <gazebo reference="gz_kinect_link">
+    <sensor type="depth" name="kinect">
+      <pose>0 0 0 0 0 0</pose>
+      <always_on>1</always_on>
+      <visualize>true</visualize>
+
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <depth_camera></depth_camera>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.7</stddev>
+        </noise>
+      </camera>
+
+      <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <!-- <baseline>0.2</baseline> -->
+        <alwaysOn>true</alwaysOn>
+
+        <updateRate>10.0</updateRate>
+        <cameraName>kinect_sensor</cameraName>
+        <frameName>gz_kinect_link</frameName>
+
+        <imageTopicName>/mobile_robot/rgb/image_raw</imageTopicName>
+        <depthImageTopicName>/mobile_robot/depth/image_raw</depthImageTopicName>
+        <pointCloudTopicName>/mobile_robot/depth/points</pointCloudTopicName>
+
+        <cameraInfoTopicName>/mobile_robot/rgb/camera_info</cameraInfoTopicName>
+        <depthImageInfoTopicName>/mobile_robot/depth/camera_info</depthImageInfoTopicName>
+
+        <pointCloudCutoff>0.4</pointCloudCutoff>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.001</distortionK1>
+        <distortionK2>0.001</distortionK2>
+        <distortionK3>0.001</distortionK3>
+        <distortionT1>0.001</distortionT1>
+        <distortionT2>0.001</distortionT2>
+        <CxPrime>0</CxPrime>
+        <Cx>0</Cx>
+        <Cy>0</Cy>
+        <focalLength>0</focalLength>
+      </plugin>
+    </sensor>
+  </gazebo>
+
   <!-- =================== Gazebo ==================== -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/</robotNamespace>
     </plugin>
   </gazebo>
-  <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-    <alwaysOn>true</alwaysOn>
-    <updateRate>20</updateRate>
-    <leftJoint>base_link_wh_left_back</leftJoint>
-    <rightJoint>base_link_wh_right_back</rightJoint>
-    <wheelSeparation>0.5</wheelSeparation>
-    <wheelDiameter>0.1</wheelDiameter>
-    <torque>20</torque>
-    <commandTopic>/cmd_vel</commandTopic>
-    <odometryTopic>/mobile_robot/odom</odometryTopic>
-    <odometryFrame>odom</odometryFrame>
-    <robotBaseFrame>base_link</robotBaseFrame>
-  </plugin>
 </robot>
