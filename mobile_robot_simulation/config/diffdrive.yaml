@@ -6,6 +6,7 @@ right_wheel: ['base_link_wh_right_back', 'base_link_wh_right_front']
 
 wheel_separation: 0.44
 
+enable_odom_tf: false
 # Odometry covariances for the encoder output of the robot. These values should
 # be tuned to your robot's sample odometry data, but these values are a good place
 # to start
